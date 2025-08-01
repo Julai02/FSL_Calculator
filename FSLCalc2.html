@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="keywords" content="satellite communication, pathloss calculator, free space loss calculator, physics, telecommunication" />
+  <meta name=" author" content="Holliness Julai Mwawasi"
+  <title>Free Space Loss Calculator</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #fce4ec);
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 1.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      color: #006064;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      animation: dropIn 1s ease-out;
+    }
+
+    @keyframes dropIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .calculator {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      width: 320px;
+      transition: transform 0.3s ease;
+    }
+
+    .calculator:hover {
+      transform: scale(1.02);
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      color: #333;
+      font-weight: 600;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 0.3rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      padding: 0.8rem;
+      width: 100%;
+      background-color: #00838f;
+      color: white;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #006064;
+    }
+
+    .result {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #00796b;
+      transition: opacity 0.5s ease-in;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📡 Free Space Loss Calculator</h1>
+
+  <div class="calculator">
+    <label for="frequency">Frequency (GHz):</label>
+    <input type="number" id="frequency" placeholder="Enter frequency in GHz" step="any" />
+
+    <label for="distance">Distance (KM):</label>
+    <input type="number" id="distance" placeholder="Enter distance in KM" step="any" />
+
+    <button onclick="calculateFSL()">Calculate FSL</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculateFSL() {
+      const frequency = parseFloat(document.getElementById('frequency').value);
+      const distance = parseFloat(document.getElementById('distance').value);
+      const resultElement = document.getElementById('result');
+
+      if (!frequency || !distance || frequency <= 0 || distance <= 0) {
+        resultElement.textContent = "Please enter valid positive values.";
+        return;
+      }
+
+      const fsl = 92.4 + 20 * Math.log10(frequency) + 20 * Math.log10(distance);
+      resultElement.style.opacity = '0';
+      setTimeout(() => {
+        resultElement.textContent = `Free Space Loss: ${fsl.toFixed(2)} dB`;
+        resultElement.style.opacity = '1';
+      }, 300);
+    }
+  </script>
+
+</body>
+</html>
